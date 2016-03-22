@@ -7,7 +7,7 @@ RUN sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list \
   && apt-get install -y build-essential \
   && apt-get install -y software-properties-common \
   && apt-get -y install passwd sudo git wget openssl openssh-server openssh-client \
-  && apt-get -y install mail postfix \
+  && apt-get -y install mailutlis postfix \
   && rm -rf /var/lib/apt/lists/*  
 # Create user
 RUN useradd sensu \
