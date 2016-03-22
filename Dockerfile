@@ -49,7 +49,9 @@ RUN mkdir -p /tmp \
 # sudo chown -R sensu:sensu /etc/sensu \
 RUN apt-get install -y uchiwa \
   && update-rc.d sensu-server defaults \
-  && update-rc.d sensu-api defaults 
+  && update-rc.d sensu-api defaults  \
+  #&& update-rc.d sensu-client defaults \
+  && update-rc.d uchiwa defaults
 EXPOSE 22 3000 4567 5671 15672
 CMD service sensu-server start && service sensu-api start && service uchiwa start
 
