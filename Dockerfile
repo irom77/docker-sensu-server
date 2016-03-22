@@ -1,7 +1,6 @@
 FROM ubuntu:14.04
 MAINTAINER Irek Romaniuk
 # Install
-
 RUN sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list \
   && apt-get update \
   && apt-get -y upgrade \
