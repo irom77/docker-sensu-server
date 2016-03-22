@@ -45,7 +45,7 @@ RUN mkdir -p /tmp \
   && cp /tmp/ssl_certs/sensu_ca/cacert.pem /tmp/ssl_certs/server/cert.pem /tmp/ssl_certs/server/key.pem /etc/rabbitmq/ssl \
   && mkdir -p /etc/sensu/ssl \
   && cp /tmp/ssl_certs/client/cert.pem /tmp/ssl_certs/client/key.pem /etc/sensu/ssl
-ADD ./files/uchiwa.json /etc/sensu/ 
+# ADD ./files/uchiwa.json /etc/sensu/ 
 # sudo chown -R sensu:sensu /etc/sensu \
 RUN apt-get install -y uchiwa \
   && update-rc.d sensu-server defaults \
