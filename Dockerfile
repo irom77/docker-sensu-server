@@ -19,7 +19,8 @@ RUN wget http://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb \
   && apt-get -y install erlang-nox=1:18.2 
 #2: Install RabbitMQ  
 RUN wget http://www.rabbitmq.com/releases/rabbitmq-server/v3.6.0/rabbitmq-server_3.6.0-1_all.deb \
-  && dpkg -i rabbitmq-server_3.6.0-1_all.deb 
+  && dpkg -i rabbitmq-server_3.6.0-1_all.deb \
+  && rabbitmq-plugins enable rabbitmq_management
 #3: Install Redis
 RUN apt-get update \
   && apt-get -y install redis-server 
