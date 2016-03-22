@@ -2,8 +2,7 @@ FROM ubuntu:14.04
 MAINTAINER Irek Romaniuk
 # Install
 # sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list \
-RUN 
-  && apt-get update \
+RUN apt-get update \
   && apt-get -y upgrade \
   && apt-get install -y build-essential \
   && apt-get install -y software-properties-common \
