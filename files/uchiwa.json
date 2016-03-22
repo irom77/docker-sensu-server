@@ -14,7 +14,7 @@
   "uchiwa": {
     "user": "",
     "pass": "",
-    "port": 3000,
+    "port": 3005,
     "stats": 10,
     "refresh": 10000
   }
