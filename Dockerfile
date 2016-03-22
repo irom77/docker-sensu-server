@@ -7,7 +7,7 @@ RUN sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list \
   && apt-get install -y build-essential \
   && apt-get install -y software-properties-common \
   && apt-get -y install passwd sudo git wget openssl openssh-server openssh-client \
-  && apt-get -y install postfix \
+  && apt-get -y install postfix dos2unix \
   && rm -rf /var/lib/apt/lists/*  
 # Create user
 RUN useradd sensu \
@@ -51,5 +51,5 @@ RUN  update-rc.d rabbitmq-server defaults \
   && update-rc.d uchiwa defaults 
 EXPOSE 22 3000 4567 5671 15672
 COPY ./files/start.sh .
-CMD chmod +x ./start.sh && ./start.sh 
+CMD chmod +x ./start.sh && dos2unix ./start.sh && ./start.sh 
 
