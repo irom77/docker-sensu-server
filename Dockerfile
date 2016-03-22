@@ -52,7 +52,7 @@ ADD files/supervisord.conf /etc/supervisord.conf
 
 RUN /etc/init.d/sshd start && /etc/init.d/sshd stop
 
-EXPOSE 22 3000 4567 5671 15672
+EXPOSE 22 3005 4567 5671 15672
 
 CMD ["/usr/bin/supervisord"]
 
