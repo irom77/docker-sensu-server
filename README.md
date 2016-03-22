@@ -5,24 +5,18 @@ It runs redis, rabbitmq-server, uchiwa, sensu-api, sensu-server and ssh processe
 
 ## Installation
 
-Install from docker index or build from Dockerfile
-
-```
-docker pull hiroakis/docker-sensu-server
-```
-
-or
+Build from Dockerfile
 
 ```
 git clone https://github.com/hiroakis/docker-sensu-server.git
 cd docker-sensu-server
-docker build -t yourname/docker-sensu-server .
+docker build -t docker-sensu-server .
 ```
 
 ## Run
 
 ```
-docker run -d -p 10022:22 -p 3000:3000 -p 4567:4567 -p 5671:5671 -p 15672:15672 hiroakis/docker-sensu-server
+docker run -d -p 10022:22 -p 3000:3000 -p 4567:4567 -p 5671:5671 -p 15672:15672 docker-sensu-server
 ```
 
 ## How to access via browser and sensu-client
@@ -32,7 +26,7 @@ docker run -d -p 10022:22 -p 3000:3000 -p 4567:4567 -p 5671:5671 -p 15672:15672 
 * http://your-server:15672/
 * id/pwd : sensu/password
 
-### uchiwa
+### Sensu Enterprise Dashboard
 
 * http://your-server:3000/
 
