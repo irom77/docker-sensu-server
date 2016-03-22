@@ -1,7 +1,5 @@
 FROM ubuntu:14.04
-
 MAINTAINER Irek Romaniuk
-
 # Install
 RUN \
   sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list && \
@@ -12,14 +10,12 @@ RUN \
   && yum -y install passwd sudo git wget openssl openssh openssh-server openssh-clients \
   && yum -y install mail postfix \
   rm -rf /var/lib/apt/lists/*
-
 # Create user
 RUN useradd sensu \
  && echo "sensu" | passwd sendu --stdin \
  && sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config \
  && sed -ri 's/#UsePAM no/UsePAM no/g' /etc/ssh/sshd_config \
  && echo "sensu ALL=(ALL) ALL" >> /etc/sudoers.d/sensu
-
 #1: Install Erlang
 RUN wget http://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb \
   && dpkg -i erlang-solutions_1.0_all.deb \
@@ -40,7 +36,6 @@ RUN apt-get update \
   && apt-get -y install redis-server \
   && update-rc.d redis-server defaults \
   && /etc/init.d/redis-server start
-
 RUN wget -q http://repositories.sensuapp.org/apt/pubkey.gpg -O- | sudo apt-key add - \
 && echo "deb http://repositories.sensuapp.org/apt sensu main" | sudo tee /etc/apt/sources.list.d/sensu.list
 ADD ./files/sensu.repo /etc/yum.repos.d/
@@ -60,11 +55,8 @@ RUN sudo chown -R sensu:sensu /etc/sensu \
   && apt-get install -y uchiwa
   && update-rc.d sensu-server defaults \
   && update-rc.d sensu-api defaults 
-
 RUN /etc/init.d/sshd start && /etc/init.d/sshd stop \
 && /etc/init.d/sensu-server start && /etc/init.d/sensu-api start
-
 EXPOSE 22 3000 4567 5671 15672
-
 #CMD [""]
 
