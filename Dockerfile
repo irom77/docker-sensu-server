@@ -41,25 +41,21 @@ RUN rabbitmq-plugins enable rabbitmq_management
 export SE_USER=USER
 export SE_PASS=PASSWORD
 
-
 # Sensu server
-ADD ./files/sensu.repo /etc/yum.repos.d/
-RUN yum install -y sensu
+ADD ./files/sensu-enterprise.repo /etc/yum.repos.d/
+ADD ./files/sensu-enterprise-dashboard.repo /etc/yum.repos.d/
+RUN yum install -y sensu \
+  && apt-get update \
+  && apt-get install sensu-enterprise
 ADD ./files/config.json /etc/sensu/
 RUN mkdir -p /etc/sensu/ssl \
   && cp /joemiller.me-intro-to-sensu/client_cert.pem /etc/sensu/ssl/cert.pem \
   && cp /joemiller.me-intro-to-sensu/client_key.pem /etc/sensu/ssl/key.pem
 
-# uchiwa
-# RUN yum install -y uchiwa
-# ADD ./files/uchiwa.json /etc/sensu/
+sudo chown -R sensu:sensu /etc/sensu
+apt-get install sensu-enterprise-dashboard
 
-# supervisord
-RUN wget http://peak.telecommunity.com/dist/ez_setup.py;python ez_setup.py \
-  && easy_install supervisor
-ADD files/supervisord.conf /etc/supervisord.conf
-
-RUN /etc/init.d/sshd start && /etc/init.d/sshd stop
+RUN /etc/init.d/sshd start && /etc/init.d/sshd stop  && /etc/init.d/sensu-enterprise start && /etc/init.d/sensu-enterprise-dashboard start
 
 EXPOSE 22 3000 4567 5671 15672
 
