@@ -37,7 +37,7 @@ RUN wget -q http://repositories.sensuapp.org/apt/pubkey.gpg -O- | sudo apt-key a
   && apt-get update \
   && apt-get install sensu
 ADD ./files/config.json /etc/sensu/
-RUN mkdir /tmp \
+RUN mkdir -p /tmp \
   && cd /tmp  \
   && wget http://sensuapp.org/docs/0.21/tools/ssl_certs.tar && tar -xvf ssl_certs.tar \
   && cd ssl_certs && ./ssl_certs.sh generate \
