@@ -1,14 +1,15 @@
 FROM ubuntu:14.04
 MAINTAINER Irek Romaniuk
 # Install
-# sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list \
-RUN apt-get update \
+
+RUN sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list \
+apt-get update \
   && apt-get -y upgrade \
   && apt-get install -y build-essential \
   && apt-get install -y software-properties-common \
   && apt-get -y install passwd sudo git wget openssl openssh-server openssh-client \
-  && apt-get -y install mail postfix 
-# rm -rf /var/lib/apt/lists/*  
+  && apt-get -y install mail postfix \
+  && rm -rf /var/lib/apt/lists/*  
 # Create user
 RUN useradd sensu \
  && echo "sensu" | passwd sendu --stdin \
