@@ -50,8 +50,7 @@ RUN mkdir -p /tmp \
 RUN apt-get install -y uchiwa \
   && update-rc.d sensu-server defaults \
   && update-rc.d sensu-api defaults 
-RUN /etc/init.d/sshd start && /etc/init.d/sshd stop \
-&& /etc/init.d/sensu-server start && /etc/init.d/sensu-api start
+RUN /etc/init.d/sensu-server start && /etc/init.d/sensu-api start
 EXPOSE 22 3000 4567 5671 15672
 #CMD [""]
 
