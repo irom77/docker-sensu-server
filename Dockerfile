@@ -23,7 +23,7 @@ RUN wget http://www.rabbitmq.com/releases/rabbitmq-server/v3.6.0/rabbitmq-server
 #3: Running and configure RabbitMQ  
 # ADD ./files/rabbitmq.config /etc/rabbitmq/
 RUN update-rc.d rabbitmq-server defaults \
-  && /etc/init.d/rabbitmq-server start \
+  && service rabbitmq-server start \
   && rabbitmqctl add_vhost /sensu \
   && rabbitmqctl add_user sensu secret \
   && rabbitmqctl set_permissions -p /sensu sensu ".*" ".*" ".*"
@@ -31,7 +31,7 @@ RUN update-rc.d rabbitmq-server defaults \
 RUN apt-get update \
   && apt-get -y install redis-server \
   && update-rc.d redis-server defaults \
-  && /etc/init.d/redis-server start
+  && service redis-server start
 RUN wget -q http://repositories.sensuapp.org/apt/pubkey.gpg -O- | sudo apt-key add - \
   && echo "deb http://repositories.sensuapp.org/apt sensu main" | sudo tee /etc/apt/sources.list.d/sensu.list \
   && apt-get update \
@@ -51,5 +51,5 @@ RUN apt-get install -y uchiwa \
   && update-rc.d sensu-server defaults \
   && update-rc.d sensu-api defaults 
 EXPOSE 22 3000 4567 5671 15672
-CMD /etc/init.d/sensu-server start && /etc/init.d/sensu-api start
+CMD service sensu-server start && service sensu-api start && service uchiwa start
 
