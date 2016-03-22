@@ -1,5 +1,0 @@
-[sensu-enterprise-dashboard]
-name=sensu-enterprise-dashboard
-baseurl=http://$SE_USER:$SE_PASS@enterprise.sensuapp.com/yum/\$basearch/
-gpgcheck=0
-enabled=1
