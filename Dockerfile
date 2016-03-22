@@ -50,20 +50,22 @@ ADD ./files/sensu-enterprise-dashboard.repo /etc/yum.repos.d/
 RUN apt-get update \
   && apt-get install sensu-enterprise
 ADD ./files/config.json /etc/sensu/
-RUN mkdir /tmp
+RUN mkdir /tmp \
   && cd /tmp  \
-  && wget http://sensuapp.org/docs/0.13/tools/ssl_certs.tar && tar -xvf ssl_certs.tar \
+  && wget http://sensuapp.org/docs/0.21/tools/ssl_certs.tar && tar -xvf ssl_certs.tar \
   && cd ssl_certs && ./ssl_certs.sh generate \
-  && mkdir -p /etc/sensu/ssl \
   && mkdir -p /etc/rabbitmq/ssl \
-  && cp /tmp/ssl_certs/sensu_ca/cacert.pem /tmp/ssl_certs/server/cert.pem /tmp/ssl_certs/server/key.pem /etc/rabbitmq/ssl
+  && cp /tmp/ssl_certs/sensu_ca/cacert.pem /tmp/ssl_certs/server/cert.pem /tmp/ssl_certs/server/key.pem /etc/rabbitmq/ssl \
+  && mkdir -p /etc/sensu/ssl \
+  && cp /tmp/ssl_certs/client/cert.pem /tmp/ssl_certs/client/key.pem /etc/sensu/ssl
 RUN sudo chown -R sensu:sensu /etc/sensu \
   && apt-get install sensu-enterprise-dashboard \
-  && update-rc.d sensu-enterprise defaults
+  && update-rc.d sensu-enterprise defaults 
 
-RUN /etc/init.d/sshd start && /etc/init.d/sshd stop  && /etc/init.d/sensu-enterprise start && /etc/init.d/sensu-enterprise-dashboard start
+RUN /etc/init.d/sshd start && /etc/init.d/sshd stop \
+&& /etc/init.d/sensu-enterprise start && /etc/init.d/sensu-enterprise-dashboard start
 
 EXPOSE 22 3000 4567 5671 15672
 
-CMD ["/usr/bin/supervisord"]
+#CMD [""]
 
