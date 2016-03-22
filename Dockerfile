@@ -41,12 +41,9 @@ RUN apt-get update \
   && update-rc.d redis-server defaults \
   && /etc/init.d/redis-server start
 
-ENV  SE_USER USER
-ENV  SE_PASS PASSWORD
-RUN wget -q http://$SE_USER:$SE_PASS@enterprise.sensuapp.com/apt/pubkey.gpg -O- | sudo apt-key add - \
-&& echo "deb     http://$SE_USER:$SE_PASS@enterprise.sensuapp.com/apt sensu-enterprise main" | sudo tee /etc/apt/sources.list.d/sensu-enterprise.list
-ADD ./files/sensu-enterprise.repo /etc/yum.repos.d/
-ADD ./files/sensu-enterprise-dashboard.repo /etc/yum.repos.d/
+RUN wget -q http://repositories.sensuapp.org/apt/pubkey.gpg -O- | sudo apt-key add - \
+&& echo "deb http://repositories.sensuapp.org/apt sensu main" | sudo tee /etc/apt/sources.list.d/sensu.list
+ADD ./files/sensu.repo /etc/yum.repos.d/
 RUN apt-get update \
   && apt-get install sensu-enterprise
 ADD ./files/config.json /etc/sensu/
