@@ -21,7 +21,7 @@ RUN wget http://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb \
 RUN wget http://www.rabbitmq.com/releases/rabbitmq-server/v3.6.0/rabbitmq-server_3.6.0-1_all.deb \
   && dpkg -i rabbitmq-server_3.6.0-1_all.deb 
 #3: Running and configure RabbitMQ  
-ADD ./files/rabbitmq.config /etc/rabbitmq/
+# ADD ./files/rabbitmq.config /etc/rabbitmq/
 RUN update-rc.d rabbitmq-server defaults \
   && /etc/init.d/rabbitmq-server start \
   && rabbitmqctl add_vhost /sensu \
