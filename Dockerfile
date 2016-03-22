@@ -11,9 +11,6 @@ RUN sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list \
   && rm -rf /var/lib/apt/lists/*  
 # Create user
 RUN useradd sensu \
- && echo "sensu" | passwd sendu --stdin \
- && sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config \
- && sed -ri 's/#UsePAM no/UsePAM no/g' /etc/ssh/sshd_config \
  && echo "sensu ALL=(ALL) ALL" >> /etc/sudoers.d/sensu
 #1: Install Erlang
 RUN wget http://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb \
