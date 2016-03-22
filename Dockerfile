@@ -21,7 +21,7 @@ RUN wget http://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb \
 RUN wget http://www.rabbitmq.com/releases/rabbitmq-server/v3.6.0/rabbitmq-server_3.6.0-1_all.deb \
   && dpkg -i rabbitmq-server_3.6.0-1_all.deb 
 #3: Running and configure RabbitMQ  
-COPY ./files/rabbitmq.config /etc/rabbitmq/
+ADD ./files/rabbitmq.config /etc/rabbitmq/
 RUN update-rc.d rabbitmq-server defaults \
   && /etc/init.d/rabbitmq-server start \
   && rabbitmqctl add_vhost /sensu \
@@ -36,7 +36,7 @@ RUN wget -q http://repositories.sensuapp.org/apt/pubkey.gpg -O- | sudo apt-key a
   && echo "deb http://repositories.sensuapp.org/apt sensu main" | sudo tee /etc/apt/sources.list.d/sensu.list \
   && apt-get update \
   && apt-get install sensu
-COPY ./files/config.json /etc/sensu/
+ADD ./files/config.json /etc/sensu/
 RUN mkdir /tmp \
   && cd /tmp  \
   && wget http://sensuapp.org/docs/0.21/tools/ssl_certs.tar && tar -xvf ssl_certs.tar \
@@ -45,7 +45,7 @@ RUN mkdir /tmp \
   && cp /tmp/ssl_certs/sensu_ca/cacert.pem /tmp/ssl_certs/server/cert.pem /tmp/ssl_certs/server/key.pem /etc/rabbitmq/ssl \
   && mkdir -p /etc/sensu/ssl \
   && cp /tmp/ssl_certs/client/cert.pem /tmp/ssl_certs/client/key.pem /etc/sensu/ssl
-COPY ./files/uchiwa.json /etc/sensu/  
+ADD ./files/uchiwa.json /etc/sensu/  
 RUN sudo chown -R sensu:sensu /etc/sensu \
   && apt-get install -y uchiwa
   && update-rc.d sensu-server defaults \
