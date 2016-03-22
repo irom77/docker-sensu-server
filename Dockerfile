@@ -18,6 +18,7 @@ RUN wget http://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb \
   && apt-get update \
   && apt-get -y install erlang-nox=1:18.2 
 #2: Install RabbitMQ  
+COPY ./files/rabbitmq.config /etc/rabbitmq/
 RUN wget http://www.rabbitmq.com/releases/rabbitmq-server/v3.6.0/rabbitmq-server_3.6.0-1_all.deb \
   && dpkg -i rabbitmq-server_3.6.0-1_all.deb \
   && rabbitmq-plugins enable rabbitmq_management
@@ -32,7 +33,6 @@ RUN wget -q http://repositories.sensuapp.org/apt/pubkey.gpg -O- | sudo apt-key a
   && apt-get install -y uchiwa
 #5: Copy config files
 COPY ./files/config.json ./files/uchiwa.json /etc/sensu/
-COPY ./files/rabbitmq.config /etc/rabbitmq/
 #6: Create certificates
 RUN mkdir -p /tmp \
   && cd /tmp  \
