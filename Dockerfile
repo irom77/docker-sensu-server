@@ -45,7 +45,7 @@ RUN wget -q http://repositories.sensuapp.org/apt/pubkey.gpg -O- | sudo apt-key a
 && echo "deb http://repositories.sensuapp.org/apt sensu main" | sudo tee /etc/apt/sources.list.d/sensu.list
 ADD ./files/sensu.repo /etc/yum.repos.d/
 RUN apt-get update \
-  && apt-get install sensu-enterprise
+  && apt-get install sensu
 ADD ./files/config.json /etc/sensu/
 RUN mkdir /tmp \
   && cd /tmp  \
@@ -55,12 +55,14 @@ RUN mkdir /tmp \
   && cp /tmp/ssl_certs/sensu_ca/cacert.pem /tmp/ssl_certs/server/cert.pem /tmp/ssl_certs/server/key.pem /etc/rabbitmq/ssl \
   && mkdir -p /etc/sensu/ssl \
   && cp /tmp/ssl_certs/client/cert.pem /tmp/ssl_certs/client/key.pem /etc/sensu/ssl
+ADD ./files/uchiwa.json /etc/sensu/  
 RUN sudo chown -R sensu:sensu /etc/sensu \
-  && apt-get install sensu-enterprise-dashboard \
-  && update-rc.d sensu-enterprise defaults 
+  && apt-get install -y uchiwa
+  && update-rc.d sensu-server defaults \
+  && update-rc.d sensu-api defaults 
 
 RUN /etc/init.d/sshd start && /etc/init.d/sshd stop \
-&& /etc/init.d/sensu-enterprise start && /etc/init.d/sensu-enterprise-dashboard start
+&& /etc/init.d/sensu-server start && /etc/init.d/sensu-api start
 
 EXPOSE 22 3000 4567 5671 15672
 
