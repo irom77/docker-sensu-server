@@ -1,4 +1,4 @@
-# docker-sensu-server (Sensu Enterprise)
+# docker-sensu-server (Core )
 
 CentOS and sensu.
 It runs redis, rabbitmq-server, Sensu Enterprise Dashboard, sensu-api, sensu-server and ssh processes.
@@ -8,9 +8,9 @@ It runs redis, rabbitmq-server, Sensu Enterprise Dashboard, sensu-api, sensu-ser
 Build from Dockerfile
 
 ```
-git clone https://github.com/irom77/docker-sensu-server.git
+git clone -b core-ubuntu-debian https://github.com/irom77/docker-sensu-server.git
 cd docker-sensu-server
-docker build -t docker-sensu-server .
+docker build -t sensu-server .
 ```
 
 ## Run
