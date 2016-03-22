@@ -3,9 +3,15 @@ FROM ubuntu:14.04
 MAINTAINER Irek Romaniuk
 
 # Basic packages
-RUN rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm \
-  && yum -y install passwd sudo git wget openssl openssh openssh-server openssh-clients \\
-  && yum -y install mail postfix
+RUN RUN \
+  sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list && \
+  apt-get update && \
+  apt-get -y upgrade && \
+  apt-get install -y build-essential && \
+  apt-get install -y software-properties-common && \
+  && yum -y install passwd sudo git wget openssl openssh openssh-server openssh-clients \
+  && yum -y install mail postfix \
+  rm -rf /var/lib/apt/lists/*
 
 # Create user
 RUN useradd sensu \
