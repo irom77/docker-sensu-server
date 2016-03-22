@@ -1,7 +1,7 @@
 # docker-sensu-server (Sensu Enterprise)
 
 CentOS and sensu.
-It runs redis, rabbitmq-server, uchiwa, sensu-api, sensu-server and ssh processes.
+It runs redis, rabbitmq-server, Sensu Enterprise Dashboard, sensu-api, sensu-server and ssh processes.
 
 ## Installation
 
