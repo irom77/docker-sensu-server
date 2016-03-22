@@ -8,7 +8,7 @@ It runs redis, rabbitmq-server, Sensu Enterprise Dashboard, sensu-api, sensu-ser
 Build from Dockerfile
 
 ```
-git clone https://github.com/hiroakis/docker-sensu-server.git
+git clone https://github.com/irom77/docker-sensu-server.git
 cd docker-sensu-server
 docker build -t docker-sensu-server .
 ```
