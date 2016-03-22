@@ -49,5 +49,5 @@ RUN  update-rc.d rabbitmq-server defaults \
   #&& update-rc.d sensu-client defaults \
   && update-rc.d uchiwa defaults 
 EXPOSE 22 3000 4567 5671 15672
-CMD service rabbitmq-server start && service redis-server start && service sensu-server start && service sensu-api start && service uchiwa start
+#CMD 
 
