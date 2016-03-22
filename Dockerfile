@@ -6,8 +6,8 @@ RUN sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list \
   && apt-get -y upgrade \
   && apt-get install -y build-essential \
   && apt-get install -y software-properties-common \
-  && apt-get install -y passwd sudo git wget openssl openssh-server openssh-client \
-  && apt-get install -y mailutlis postfix \
+  && apt-get -y install passwd sudo git wget openssl openssh-server openssh-client \
+  && apt-get -y install postfix \
   && rm -rf /var/lib/apt/lists/*  
 # Create user
 RUN useradd sensu \
