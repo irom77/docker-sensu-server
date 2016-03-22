@@ -44,8 +44,8 @@ RUN apt-get update \
 ADD ./files/rabbitmq.config /etc/rabbitmq/
 RUN rabbitmq-plugins enable rabbitmq_management
 
-export SE_USER=USER
-export SE_PASS=PASSWORD
+ENV  SE_USER USER
+ENV  SE_PASS PASSWORD
 
 # Sensu server
 ADD ./files/sensu-enterprise.repo /etc/yum.repos.d/
