@@ -36,9 +36,8 @@ RUN apt-get update \
   && update-rc.d redis-server defaults \
   && /etc/init.d/redis-server start
 RUN wget -q http://repositories.sensuapp.org/apt/pubkey.gpg -O- | sudo apt-key add - \
-&& echo "deb http://repositories.sensuapp.org/apt sensu main" | sudo tee /etc/apt/sources.list.d/sensu.list
-ADD ./files/sensu.repo /etc/yum.repos.d/
-RUN apt-get update \
+  && echo "deb http://repositories.sensuapp.org/apt sensu main" | sudo tee /etc/apt/sources.list.d/sensu.list \
+  && apt-get update \
   && apt-get install sensu
 ADD ./files/config.json /etc/sensu/
 RUN mkdir /tmp \
