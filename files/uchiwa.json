@@ -12,8 +12,8 @@
     }
   ],
   "uchiwa": {
-    "user": "",
-    "pass": "",
+    "user": "admin",
+    "pass": "secret",
     "port": 3005,
     "stats": 10,
     "refresh": 10000
