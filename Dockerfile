@@ -31,8 +31,10 @@ ADD ./files/rabbitmq.config /etc/rabbitmq/
 RUN rabbitmq-plugins enable rabbitmq_management
 
 # Sensu server
-ADD ./files/sensu.repo /etc/yum.repos.d/
-RUN yum install -y sensu
+ENV SE_USER USER
+ENV SE_PASS PASSWORD
+ADD ./files/sensu-enterprise.repo ./files/sensu-enterprise-dashboard.repo /etc/yum.repos.d/
+RUN yum install -y sensu-enterpise
 ADD ./files/config.json /etc/sensu/
 RUN mkdir -p /etc/sensu/ssl \
   && cp /joemiller.me-intro-to-sensu/client_cert.pem /etc/sensu/ssl/cert.pem \
